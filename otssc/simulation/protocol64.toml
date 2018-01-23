@@ -1,0 +1,7 @@
+Simulation = "OTS"
+Servers = 64
+BF = 63
+Rounds = 10
+
+Hosts
+64
