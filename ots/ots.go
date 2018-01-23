@@ -8,8 +8,8 @@ import (
 	"os"
 
 	"github.com/dedis/cothority/skipchain"
-	"github.com/dedis/cothority_template/ots/util"
-	otssc "github.com/dedis/cothority_template/otssc/service"
+	"github.com/dedis/student_17_ots/ots/util"
+	otssc "github.com/dedis/student_17_ots/otssc/service"
 	ocs "github.com/dedis/onchain-secrets"
 	"gopkg.in/dedis/crypto.v0/abstract"
 	"gopkg.in/dedis/crypto.v0/random"

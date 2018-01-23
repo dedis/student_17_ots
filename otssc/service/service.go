@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/dedis/cothority_template/ots/util"
-	"github.com/dedis/cothority_template/otssc/protocol"
+	"github.com/dedis/student_17_ots/ots/util"
+	"github.com/dedis/student_17_ots/otssc/protocol"
 	"gopkg.in/dedis/onet.v1"
 	"gopkg.in/dedis/onet.v1/crypto"
 	"gopkg.in/dedis/onet.v1/log"

@@ -4,7 +4,7 @@ import (
 	"crypto/sha256"
 	"errors"
 
-	"github.com/dedis/cothority_template/ots/util"
+	"github.com/dedis/student_17_ots/ots/util"
 	ocs "github.com/dedis/onchain-secrets"
 
 	"gopkg.in/dedis/crypto.v0/abstract"

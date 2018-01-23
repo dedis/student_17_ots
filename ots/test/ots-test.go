@@ -5,8 +5,8 @@ import (
 	"flag"
 	"os"
 
-	ots "github.com/dedis/cothority_template/ots"
-	util "github.com/dedis/cothority_template/ots/util"
+	ots "github.com/dedis/student_17_ots/ots"
+	util "github.com/dedis/student_17_ots/ots/util"
 	"gopkg.in/dedis/crypto.v0/abstract"
 	"gopkg.in/dedis/crypto.v0/ed25519"
 	"gopkg.in/dedis/crypto.v0/random"

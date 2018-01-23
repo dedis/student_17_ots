@@ -4,7 +4,7 @@ import (
 	"math/rand"
 
 	"github.com/dedis/cothority/skipchain"
-	"github.com/dedis/cothority_template/ots/util"
+	"github.com/dedis/student_17_ots/ots/util"
 	"gopkg.in/dedis/crypto.v0/abstract"
 	"gopkg.in/dedis/onet.v1"
 	"gopkg.in/dedis/onet.v1/network"

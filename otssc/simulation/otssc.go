@@ -5,11 +5,11 @@ import (
 	"errors"
 
 	"github.com/BurntSushi/toml"
-	ots "github.com/dedis/cothority_template/ots"
+	ots "github.com/dedis/student_17_ots/ots"
 	ocs "github.com/dedis/onchain-secrets"
 
-	"github.com/dedis/cothority_template/ots/util"
-	"github.com/dedis/cothority_template/otssc/protocol"
+	"github.com/dedis/student_17_ots/ots/util"
+	"github.com/dedis/student_17_ots/otssc/protocol"
 	"gopkg.in/dedis/crypto.v0/abstract"
 	"gopkg.in/dedis/crypto.v0/ed25519"
 	"gopkg.in/dedis/crypto.v0/random"
