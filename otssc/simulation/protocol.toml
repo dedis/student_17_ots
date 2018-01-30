@@ -1,7 +1,13 @@
 Simulation = "OTS"
 Servers = 4
 Rounds = 10
-RunWait = 1200
+RunWait = 4000
 
 Hosts, BF
 16,15
+32,31
+64,63
+128,127
+160,159
+192,191
+224,223

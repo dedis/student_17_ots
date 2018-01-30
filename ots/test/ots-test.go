@@ -28,9 +28,7 @@ func main() {
 		log.Errorf("Couldn't read group.toml file: %v", err)
 		os.Exit(1)
 	}
-
-	gr := util.GetGroup(*filePtr)
-	scurl, err := ots.CreateSkipchain(gr.Roster)
+	scurl, err := ots.CreateSkipchain(el)
 	if err != nil {
 		log.Errorf("Could not create skipchain: %v", err)
 		os.Exit(1)

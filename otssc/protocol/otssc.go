@@ -4,8 +4,8 @@ import (
 	"crypto/sha256"
 	"errors"
 
+	ocs "github.com/dedis/student_17_ots"
 	"github.com/dedis/student_17_ots/ots/util"
-	ocs "github.com/dedis/onchain-secrets"
 
 	"gopkg.in/dedis/crypto.v0/abstract"
 	"gopkg.in/dedis/crypto.v0/cosi"
@@ -44,13 +44,11 @@ func NewProtocol(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
 		TreeNodeInstance: n,
 		DecShares:        make(chan []*util.DecryptedShare),
 	}
-	// err := otsDecrypt.RegisterChannelLength(&otsDecrypt.ChannelAnnounce, 2000)
 	err := otsDecrypt.RegisterChannel(&otsDecrypt.ChannelAnnounce)
 
 	if err != nil {
 		return nil, errors.New("couldn't register announcement-channel: " + err.Error())
 	}
-	// err = otsDecrypt.RegisterChannelLength(&otsDecrypt.ChannelReply, 2000)
 	err = otsDecrypt.RegisterChannel(&otsDecrypt.ChannelReply)
 
 	if err != nil {
@@ -85,8 +83,14 @@ func (p *OTSDecrypt) Dispatch() error {
 		}
 
 		idx := p.Index()
-		if idx <= announcement.RootIndex {
-			idx--
+		// This is not needed anymore because indexes
+		// are swapped instead of shifting
+		// log.Info(p.Name(), idx)
+		// if idx <= announcement.RootIndex {
+		// 	idx--
+		// }
+		if idx == announcement.RootIndex {
+			idx = 0
 		}
 
 		h, err := util.CreatePointH(network.Suite, writeTxnData.ReaderPk)
@@ -95,14 +99,18 @@ func (p *OTSDecrypt) Dispatch() error {
 			return err
 		}
 
+		// ds := &util.DecryptedShare{
+		// 	Index: p.Index(),
+		// }
 		ds := &util.DecryptedShare{
-			Index: p.Index(),
+			K:  nil,
+			Cs: nil,
 		}
 		tempSh, err := pvss.DecShare(network.Suite, h, p.Public(), writeTxnData.EncProofs[idx], p.Private(), writeTxnData.EncShares[idx])
 		if err != nil {
 			log.Error(p.Info(), "Failed to decrypt share", p.Name(), err)
-			ds.K = nil
-			ds.Cs = nil
+			// ds.K = nil
+			// ds.Cs = nil
 		} else {
 			K, Cs := elGamalEncrypt(tempSh, writeTxnData.ReaderPk)
 			ds.K = K
@@ -135,10 +143,15 @@ func (p *OTSDecrypt) Dispatch() error {
 		return err
 	}
 
+	// ds := &util.DecryptedShare{
+	// 	Index: p.Index(),
+	// }
 	ds := &util.DecryptedShare{
-		Index: p.Index(),
+		K:  nil,
+		Cs: nil,
 	}
 	tempSh, err := pvss.DecShare(network.Suite, h, p.Public(), writeTxnData.EncProofs[idx], p.Private(), writeTxnData.EncShares[idx])
+
 	if err != nil {
 		log.Error(p.Info(), "Failed to decrypt share", p.Name(), err)
 		ds.K = nil
@@ -233,7 +246,6 @@ func verifyDecryptionRequest(decReqData *util.OTSDecryptReqData, sig *crypto.Sch
 	}
 
 	// 3) Check that read contains write's hash
-	// Not sure if redundant!
 	writeSBHash := decReqData.WriteTxnSBF.CalculateHash()
 	hc = readTxn.DataID.Equal(writeSBHash)
 	if !hc {

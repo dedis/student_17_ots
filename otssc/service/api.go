@@ -3,8 +3,8 @@ package service
 import (
 	"math/rand"
 
-	"github.com/dedis/cothority/skipchain"
 	"github.com/dedis/student_17_ots/ots/util"
+	"gopkg.in/dedis/cothority.v1/skipchain"
 	"gopkg.in/dedis/crypto.v0/abstract"
 	"gopkg.in/dedis/onet.v1"
 	"gopkg.in/dedis/onet.v1/network"
@@ -51,15 +51,18 @@ func (c *Client) OTSDecrypt(r *onet.Roster, writeTxnSBF *skipchain.SkipBlockFix,
 		return nil, onet.NewClientErrorCode(ErrorParse, err.Error())
 	}
 
-	if idx != 0 {
-		for i := 0; i < len(r.List); i++ {
-			tmp := reply.DecShares[i]
-			if tmp.Index == 0 {
-				reply.DecShares[i].Index = idx
-			} else if tmp.Index <= idx {
-				reply.DecShares[i].Index--
-			}
-		}
-	}
+	// Reordering the decrypted shares so that it
+	// agrees with the indexes of the client data
+	// e.g public keys
+	// if idx != 0 {
+	// 	for i := 0; i < len(r.List); i++ {
+	// 		tmp := reply.DecShares[i]
+	// 		if tmp.Index == 0 {
+	// 			reply.DecShares[i].Index = idx
+	// 		} else if tmp.Index <= idx {
+	// 			reply.DecShares[i].Index--
+	// 		}
+	// 	}
+	// }
 	return reply.DecShares, nil
 }

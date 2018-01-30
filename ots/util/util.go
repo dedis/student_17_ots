@@ -51,20 +51,8 @@ func CreatePointH(suite abstract.Suite, pubKey abstract.Point) (abstract.Point, 
 	return h, nil
 }
 
-func GetGroup(tomlFileName string) *app.Group {
-	gr, err := os.Open(tomlFileName)
-	log.ErrFatal(err)
-	defer gr.Close()
-	groups, err := app.ReadGroupDescToml(gr)
-	log.ErrFatal(err)
-	if groups == nil || groups.Roster == nil || len(groups.Roster.List) == 0 {
-		log.Fatal("No servers found in roster from", tomlFileName)
-	}
-	return groups
-}
-
 func ReadRoster(tomlFileName string) (*onet.Roster, error) {
-	log.Print("Reading From File")
+	log.Lvl3("Reading in the roster from group.toml")
 	f, err := os.Open(tomlFileName)
 	if err != nil {
 		return nil, err

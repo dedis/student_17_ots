@@ -5,8 +5,8 @@ import (
 	"errors"
 
 	"github.com/BurntSushi/toml"
+	ocs "github.com/dedis/student_17_ots"
 	ots "github.com/dedis/student_17_ots/ots"
-	ocs "github.com/dedis/onchain-secrets"
 
 	"github.com/dedis/student_17_ots/ots/util"
 	"github.com/dedis/student_17_ots/otssc/protocol"

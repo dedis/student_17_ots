@@ -9,5 +9,5 @@ Servers = 4
 Simulation = "OTS"
 Hosts = 0
 Debug = 0
-RunWait = 1200
+RunWait = 4000
 PreScript = ""

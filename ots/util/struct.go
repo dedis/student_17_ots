@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/dedis/cothority/skipchain"
+	"gopkg.in/dedis/cothority.v1/skipchain"
 	"gopkg.in/dedis/crypto.v0/abstract"
 	"gopkg.in/dedis/crypto.v0/share/pvss"
 )
@@ -34,13 +34,8 @@ type OTSDecryptReqData struct {
 	ACPublicKeys   []abstract.Point
 }
 
-// type DecryptedShare struct {
-// 	Index int
-// 	Data  []byte
-// }
-
 type DecryptedShare struct {
-	Index int
-	K     abstract.Point
-	Cs    []abstract.Point
+	// Index int
+	K  abstract.Point
+	Cs []abstract.Point
 }

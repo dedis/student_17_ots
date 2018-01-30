@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "github.com/dedis/onchain-secrets/service"
+	_ "github.com/dedis/student_17_ots/service"
 	"gopkg.in/dedis/onet.v1/simul"
 )
 

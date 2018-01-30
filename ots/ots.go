@@ -7,20 +7,21 @@ import (
 	"errors"
 	"os"
 
-	"github.com/dedis/cothority/skipchain"
+	ocs "github.com/dedis/student_17_ots"
 	"github.com/dedis/student_17_ots/ots/util"
 	otssc "github.com/dedis/student_17_ots/otssc/service"
-	ocs "github.com/dedis/onchain-secrets"
-	"gopkg.in/dedis/crypto.v0/abstract"
-	"gopkg.in/dedis/crypto.v0/random"
+	"gopkg.in/dedis/cothority.v1/skipchain"
 	"gopkg.in/dedis/crypto.v0/share/pvss"
 	"gopkg.in/dedis/onet.v1"
-	"gopkg.in/dedis/onet.v1/crypto"
 	"gopkg.in/dedis/onet.v1/network"
+
+	"gopkg.in/dedis/crypto.v0/abstract"
+	"gopkg.in/dedis/crypto.v0/random"
+	"gopkg.in/dedis/onet.v1/crypto"
 )
 
 func AddDummyTxnPairs(scurl *ocs.SkipChainURL, dp *util.DataPVSS, pairCount int) error {
-	mesg := "Bana istediginiz kadar gidip gelebilirsiniz."
+	mesg := "On Wisconsin!"
 	writerSK := make([]abstract.Scalar, pairCount)
 	writerPK := make([]abstract.Point, pairCount)
 	readerSK := make([]abstract.Scalar, pairCount)
@@ -97,7 +98,6 @@ func GetDecryptedShares(scurl *ocs.SkipChainURL, el *onet.Roster, writeTxnSB *sk
 		return nil, cerr
 	}
 
-	// tmpDecShares, err := DHDecrypt(reencShares, scPubKeys, privKey)
 	tmpDecShares, err := ElGamalDecrypt(reencShares, privKey)
 	if err != nil {
 		return nil, err
