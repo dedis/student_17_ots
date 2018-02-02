@@ -32,7 +32,6 @@ const (
 )
 
 func init() {
-	log.Print("init in service")
 	onet.RegisterNewService(ServiceName, newOTSSCService)
 	network.RegisterMessage(&OTSDecryptReq{})
 	network.RegisterMessage(&OTSDecryptResp{})

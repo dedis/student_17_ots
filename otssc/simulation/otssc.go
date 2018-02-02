@@ -54,7 +54,6 @@ func (otss *OTSSimulation) Node(config *onet.SimulationConfig) error {
 }
 
 func (otss *OTSSimulation) Run(config *onet.SimulationConfig) error {
-
 	log.Info("Total # of rounds:", otss.Rounds)
 	// HARD-CODING AC COTHORITY SIZE!
 	acSize := 10
@@ -245,6 +244,7 @@ func (otss *OTSSimulation) Run(config *onet.SimulationConfig) error {
 		}
 		log.Info("Recovered message?:", bytes.Compare(mesg, recvMesg) == 0)
 	}
+
 	return nil
 }
 
