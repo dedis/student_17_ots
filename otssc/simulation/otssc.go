@@ -56,11 +56,12 @@ func (otss *OTSSimulation) Node(config *onet.SimulationConfig) error {
 func (otss *OTSSimulation) Run(config *onet.SimulationConfig) error {
 	log.Info("Total # of rounds:", otss.Rounds)
 	// HARD-CODING AC COTHORITY SIZE!
-	acSize := 10
-	acRoster := onet.NewRoster(config.Roster.List[:acSize])
+
+	// acSize := 10
+	// acRoster := onet.NewRoster(config.Roster.List[:acSize])
 	scPubKeys := config.Roster.Publics()
 	log.Info("SC PubKeys Size", len(scPubKeys))
-	log.Info("AC Size:", len(acRoster.List))
+	// log.Info("AC Size:", len(acRoster.List))
 
 	numTrustee := config.Tree.Size()
 	log.Info("# of trustees:", numTrustee)
@@ -70,9 +71,8 @@ func (otss *OTSSimulation) Run(config *onet.SimulationConfig) error {
 		mesg[i] = 'w'
 	}
 
-	// create_sc := monitor.NewTimeMeasure("CreateSC")
-	scurl, err := ots.CreateSkipchain(acRoster)
-	// create_sc.Record()
+	// scurl, err := ots.CreateSkipchain(acRoster)
+	scurl, err := ots.CreateSkipchain(config.Roster)
 	if err != nil {
 		return err
 	}
@@ -161,6 +161,7 @@ func (otss *OTSSimulation) Run(config *onet.SimulationConfig) error {
 		}
 
 		acPubKeys := readSB.Roster.Publics()
+		log.Info("# of AC public keys:", len(acPubKeys))
 		readTxnSBF := readSB.SkipBlockFix
 		p, err := config.Overlay.CreateProtocol("otssc", config.Tree, onet.NilServiceID)
 		if err != nil {
