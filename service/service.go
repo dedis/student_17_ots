@@ -165,7 +165,9 @@ func (s *Service) WriteRequest(req *ocs.WriteRequest) (reply *ocs.WriteReply,
 func (s *Service) WriteTxnRequest(req *ocs.WriteTxnRequest) (reply *ocs.WriteTxnReply, cerr onet.ClientError) {
 	reply = &ocs.WriteTxnReply{}
 	s.saveMutex.Lock()
+	t := time.Now()
 	ocsBunch := s.Storage.OCSs.GetBunch(req.OCS)
+	log.Print("GetBunch:", time.Now().Sub(t))
 	s.saveMutex.Unlock()
 	if ocsBunch == nil {
 		return nil, onet.NewClientErrorCode(ocs.ErrorParameter, "didn't find that bunch")
@@ -182,6 +184,7 @@ func (s *Service) WriteTxnRequest(req *ocs.WriteTxnRequest) (reply *ocs.WriteTxn
 	}
 
 	i := 1
+	t = time.Now()
 	for {
 		reply.SB, cerr = s.BunchAddBlock(ocsBunch, block.Roster, data)
 		if cerr == nil {
@@ -195,6 +198,7 @@ func (s *Service) WriteTxnRequest(req *ocs.WriteTxnRequest) (reply *ocs.WriteTxn
 			return nil, cerr
 		}
 	}
+	log.Print("BunchAddBlock:", time.Now().Sub(t))
 
 	log.Lvl2("Writing a key to the skipchain")
 	if cerr != nil {
@@ -202,11 +206,13 @@ func (s *Service) WriteTxnRequest(req *ocs.WriteTxnRequest) (reply *ocs.WriteTxn
 		return
 	}
 
+	t = time.Now()
 	replies, err := s.propagateOCS(ocsBunch.Latest.Roster, reply.SB, propagationTimeout)
 	if err != nil {
 		cerr = onet.NewClientErrorCode(ocs.ErrorProtocol, err.Error())
 		return
 	}
+	log.Print("Propagate:", time.Now().Sub(t))
 	if replies != len(ocsBunch.Latest.Roster.List) {
 		log.Warn("Got only", replies, "replies for write-propagation")
 	}
