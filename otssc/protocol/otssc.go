@@ -44,12 +44,12 @@ func NewProtocol(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
 		TreeNodeInstance: n,
 		DecShares:        make(chan []*util.DecryptedShare),
 	}
-	err := otsDecrypt.RegisterChannel(&otsDecrypt.ChannelAnnounce)
+	err := otsDecrypt.RegisterChannelLength(&otsDecrypt.ChannelAnnounce, 65536)
 
 	if err != nil {
 		return nil, errors.New("couldn't register announcement-channel: " + err.Error())
 	}
-	err = otsDecrypt.RegisterChannel(&otsDecrypt.ChannelReply)
+	err = otsDecrypt.RegisterChannelLength(&otsDecrypt.ChannelReply, 65536)
 
 	if err != nil {
 		return nil, errors.New("couldn't register reply-channel: " + err.Error())
